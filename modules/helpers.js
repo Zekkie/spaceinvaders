@@ -12,4 +12,8 @@ function randomMinMax(min, max) {
 	return Math.floor(Math.random() * (max - min) + min);
 }
 
-export {clamp, randomMinMax}
+function randomMinMaxDec(min, max) {
+	return Math.random() * (max - min) + min;
+}
+
+export {clamp, randomMinMax, randomMinMaxDec};

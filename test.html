@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<style type="text/css">
+		*{
+			margin:0;
+			padding:0;
+		}
+		body{
+			display: flex;
+			justify-content: center;
+			font-size:16px;
+			font-family: Arial;
+			background: #ffffff;
+			height: 100vh;
+			width: 100vw;
+			overflow: hidden;
+		}
+
+		#wrapper{
+			width: 100%;
+			
+			overflow-y: scroll;
+			display: flex;
+			align-items: center;
+			flex-direction: column;
+		}
+
+		#content{
+			width: 960px;
+			padding-top:calc(8px * 30);
+		}
+
+		h1{
+			font-size:32px;
+			margin-bottom:16px;
+		}
+		p{
+			margin-bottom: 24px;
+			line-height: 24px;
+		}
+
+		div#ball{
+			
+			background: #fff;
+			border-radius: 50%;
+			width: 12px;
+			height: 12px;
+			pointer-events: none;
+			 
+			position: absolute;
+			top:0;
+			left:0;
+			
+			transform: translate(-50%, -50%),scale(1);;
+			mix-blend-mode: difference;
+		}
+
+		nav{
+			height: 56px;
+			width: 56px;
+			right:20px;
+			display: flex;
+			flex-direction: column;
+			align-self:flex-end;
+			margin-top:24px;
+			margin-right: 24px;
+			position: relative;
+		}
+
+		nav:hover{
+			cursor: none;
+		}
+
+		nav div#nav-button{
+			width:56px;
+			height: 56px;
+
+			align-self:flex-end;
+			position: relative;
+
+		}
+
+		nav div#nav-button:before{
+			content:"";
+			width:32px;
+			height: 2px;
+			position: absolute;
+			background: black;
+			top:24px;
+			left:12px;
+		}
+		nav div#nav-button:after{
+			content:"";
+			width:32px;
+			height: 2px;
+			position: absolute;
+			background: black;
+			top:32px;
+			left:12px;
+
+		}
+
+		div#fake-cursor{
+			width: 50px;
+			height: 50px;
+			background: black;
+			position: absolute;
+			left:4px;
+			top:4px;
+			opacity: 0.3;
+			border-radius: 50%;
+			transform: scale(0);
+			transform-origin: 50% 50%;
+			transition-duration: 0.075s;
+			pointer-events:none;
+		}
+	</style>
+</head>
+<body>
+	
+	<div id="wrapper">
+		<nav>
+			<div id="nav-button"></div>
+			<div id="fake-cursor"></div>
+		</nav>
+		<div id="content">
+			<h1>Lorem ipsum dolor sit amet,</h1>
+			<p>Integer non rhoncus velit. Cras nec lectus eget massa blandit vehicula id quis ipsum. Sed ultricies ex sapien, quis tincidunt sapien finibus in. Donec id magna laoreet, faucibus erat ac, semper leo. Proin in varius dui, non luctus tortor. Quisque eros est, mollis id dolor id, vestibulum blandit sapien. Donec a ultrices magna. Duis tristique nec ex a blandit. Nunc at semper orci. Maecenas tempus porta tortor, vitae posuere mauris hendrerit vitae. Pellentesque non suscipit ipsum.</p>
+			<p>Aliquam vitae nulla vel tellus porta finibus id vitae risus. In aliquet pulvinar elit, at ultrices velit luctus vel. Cras consectetur ante tellus, nec scelerisque nisi consequat lacinia. Maecenas quis mi eget magna commodo tincidunt eu tempor purus. Pellentesque faucibus suscipit aliquet. Vivamus malesuada lectus ut viverra varius. Cras dolor metus, pulvinar at fringilla non, interdum non tortor. Maecenas est ligula, placerat quis arcu et, lacinia fringilla dolor. Sed auctor augue sit amet rutrum dapibus. Pellentesque gravida feugiat erat, vitae luctus lacus fermentum id. Aliquam lobortis turpis eu libero rutrum, vitae aliquet nunc facilisis. Fusce eu dui lectus. Mauris ut arcu vitae sem aliquam euismod. Mauris ac libero nec metus hendrerit luctus eget sit amet dui.</p>
+			<p>Praesent eu ex diam. Proin in ultrices sapien, id sodales elit. Maecenas blandit elementum lacus. Praesent dolor dui, faucibus nec elementum et, lacinia a lacus. Suspendisse blandit est et diam varius faucibus. Quisque ipsum nisi, fermentum in nisi et, finibus lobortis urna. Phasellus sit amet tincidunt enim. Donec sit amet elit ac tellus pharetra semper sed sit amet ligula.</p>
+			<p>Cras nec sagittis ex, ac pretium mauris. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer laoreet faucibus magna vitae molestie. Ut placerat vestibulum eros. Sed varius mauris a lorem fringilla, ut mollis est pulvinar. Quisque sit amet nulla vel felis tincidunt pharetra eget sit amet tortor. Curabitur id lectus nec risus ultricies mattis vitae non leo. Quisque tellus nulla, dapibus vitae lobortis nec, congue a augue.</p>
+			<img src="https://artiks.nl/media/catalog/product/cache/a968b8ec7c08ac24e51e551c9f1868e7/1/3/6015/29008/white-rose-in-black-and-white-poster.jpg" alt="">
+		</div>
+		
+
+	</div>
+	
+	<script>
+
+
+
+		
+
+		
+
+
+
+	const nav = document.querySelector("nav");
+
+	nav.onmouseover = function(e) {
+		
+
+		
+		const {x,y} = this.getBoundingClientRect();
+		const {clientX,clientY} = e;
+
+		const relativeX = clientX - x;
+		const relativeY = clientY - y;
+
+		this.querySelector("#nav-button").style.transform = `translate(${(relativeX - 28) * 0.1}px,${(relativeY - 28) * 0.1}px)`;
+		this.querySelector("#fake-cursor").style.transform = `translate(${(relativeX - 20) * 0.3}px,${(relativeY - 20) * 0.3}px) scale(1)`;
+
+		this.onmousemove = function(m) {
+
+			const {clientX, clientY} = m;
+			const relativeX = clientX - x;
+			const relativeY = clientY - y;
+			this.querySelector("#nav-button").style.transform = `translate(${(relativeX - 20) * 0.1}px,${(relativeY - 20) * 0.1}px)`;
+			this.querySelector("#fake-cursor").style.transform = `translate(${(relativeX - 20) * 0.3}px,${(relativeY - 20) * 0.3}px) scale(1)`;
+		}
+	}
+
+	nav.onmouseout = function(e) {
+
+		mouseOver = false;
+
+		const {x,y} = this.getBoundingClientRect();
+		const {clientX,clientY} = e;
+
+		const relativeX = clientX - x;
+		const relativeY = clientY - y;
+
+		this.querySelector("#nav-button").style.transform = `translate(${0}px,${0}px)`;
+		this.querySelector("#fake-cursor").style.transform = `translate(${(relativeX - 20) * 0.3}px,${(relativeY - 20) * 0.3}px) scale(0)`;
+	}
+
+	</script>
+</body>
+</html>

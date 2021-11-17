@@ -16,6 +16,9 @@ class Player {
 		this.moveSpeed = 0.4;
 		this.projectileSpeed = 0.5;
 		this.shotTime = 0;
+		this.health = 100;
+		this.maxHealth = 100;
+		this.healthBarWidth = 250;
 	}
 
 	
@@ -110,19 +113,24 @@ class Player {
 
 	update(dt,ctx, enemies) {
 
-		if(this.leftKeyDown) {
+
+		if(this.health > 0) {
+			if(this.leftKeyDown) {
 			this.x -= Math.floor(this.moveSpeed * dt);
-		}
-		if(this.rightKeyDown) {
-			this.x += Math.floor(this.moveSpeed * dt);
-		}
-		if(this.spaceKeyDown) {
-			if(this.shotTime <= 0) {
-				this.shoot();
-				this.shotTime = this.attackCooldown;
 			}
-			
+			if(this.rightKeyDown) {
+				this.x += Math.floor(this.moveSpeed * dt);
+			}
+			if(this.spaceKeyDown) {
+				if(this.shotTime <= 0) {
+					this.shoot();
+					this.shotTime = this.attackCooldown;
+				}
+				
+			}
 		}
+
+		
 
 		this.x = clamp(this.x, 0, 600 - this.width);
 
@@ -134,6 +142,31 @@ class Player {
 		ctx.fillRect(this.x, this.y, this.width, this.height);
 	}
 
+	hit() {
+		if(this.health > 0) {
+			this.health -= 10;
+		}
+	}
+
+	reset() {
+		this.projectiles = [];
+		this.health = 100;
+		this.x = Math.floor(600 / 2 - 10);
+	}
+
+	updateHealth(gameState) {
+		
+
+		gameState.ctx.fillStyle = "red";
+		gameState.ctx.fillRect(30,30, (this.health / this.maxHealth) * this.healthBarWidth,20);
+
+		gameState.ctx.strokeStyle = 'white';
+		gameState.ctx.lineWidth = 4;
+		gameState.ctx.strokeRect(30, 30, 250, 20);
+		if(this.health <= 0) {
+			gameState.gameOver = true
+		}
+	}
 }
 
 export default Player;
